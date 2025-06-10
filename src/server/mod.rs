@@ -1,3 +1,5 @@
+pub mod upload;
+
 use actix_web::{App, HttpServer, dev::Server, web};
 use color_eyre::{Result, eyre::eyre};
 use sqlx::{Pool, Sqlite};
@@ -41,7 +43,7 @@ pub fn run(listener: Listener, pool: Pool<Sqlite>, config: Config) -> Result<Ser
         {
             app = app.route("/dev/ws", dev::create_socket());
         }
-
+		app = app.route("/api/upload", web::post().to(upload::upload_handler))
         app.app_data(pool.clone()).app_data(config.clone())
     });
 

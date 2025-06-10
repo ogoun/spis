@@ -73,6 +73,18 @@ pub struct Spis {
     /// Disable feature no exif
     #[clap(long, env = "SPIS_FEATURE_NO_EXIF", default_value = "true", action=ArgAction::SetFalse)]
     pub feature_allow_no_exif: bool,
+	
+	/// Enable API upload functionality
+    #[arg(long, env = "SPIS_API_UPLOAD_ENABLE", default_value_t = false)]
+    pub api_upload_enable: bool,
+    
+    /// API upload authentication token
+    #[arg(long, env = "SPIS_API_UPLOAD_TOKEN")]
+    pub api_upload_token: Option<String>,
+    
+    /// Directory for uploaded files
+    #[arg(long, env = "SPIS_API_UPLOAD_FOLDER")]
+    pub api_upload_folder: Option<PathBuf>,
 
     #[command(subcommand)]
     command: Option<SpisCommand>,
